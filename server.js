@@ -37,7 +37,6 @@ app.get('/api/notifications', async (req, res) => {
     return res.json(response.data);
   } catch (err) {
     console.log(err);
-    throw new error();
   }
 })
 
@@ -47,7 +46,6 @@ app.get('/api/notifications-history', async (req, res) => {
     return res.json(response.data);
   } catch (err) {
     console.log(err);
-    throw new error();
   }
 })
 
