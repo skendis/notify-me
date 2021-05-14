@@ -36,15 +36,17 @@ app.get('/api/notifications', async (req, res) => {
     const response = await axios.get(notificationsUrl, {headers: configHeaders});
     return res.json(response.data);
   } catch (err) {
+    console.log('error at request');
     console.log(err);
   }
 })
 
 app.get('/api/notifications-history', async (req, res) => {
   try {
-    const response = await axios.get(historyUrl);
+    const response = await axios.get(historyUrl,{headers:configHeaders});
     return res.json(response.data);
   } catch (err) {
+    console.log('error at request');
     console.log(err);
   }
 })
