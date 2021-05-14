@@ -42,7 +42,7 @@
     height: 60px;
     display: flex;
     align-items: center;
-    background-color: #1976d2;
+    background-color: #08243b;
     color: white;
     font-weight: 600;
   }
@@ -98,7 +98,8 @@
   .card {
     border-radius: 4px;
     border: 1px solid #eee;
-    background-color: #fafafa;
+    background-color: #0f1e28;
+    color:white;
     margin: 0 8px 16px;
     padding: 16px;
     display: flex;
@@ -267,6 +268,10 @@
     z-index: -10;
     width: 1920px;
   }
+  .danger{
+    background-color: red;
+    color: white;
+  }
 
 
   /* Responsive Styles */
@@ -341,7 +346,9 @@
   <h2>התראות בזמן אמת</h2>
 
   <div class="card-container">
-    <pre>{{lastNotification.data|json}}</pre>
+    <div class="card card-small danger" *ngFor="let city of lastNotification?.data;let index" tabindex="0">
+      <span>{{city}}</span>
+    </div>
   </div>
 
   <!-- Next Steps -->
@@ -350,14 +357,14 @@
 
   <input type="hidden" #selection>
 
-  <div class="card-container">
-    <div class="card card-small" *ngFor="let notification of notifications;let index" tabindex="0">
-      <span>יישוב:  {{notification.data}}</span>
-      <span>תאריך: {{notification.date}}</span>
-      <span>שעה: {{notification.time}}</span>
-    </div>
-
+  <div class="card-container" *ngIf="!loadingHistory else loadingB">
+      <div class="card card-small" *ngFor="let notification of notifications;let index" tabindex="0">
+        <span>יישוב:  {{notification?.data}}</span>
+        <span>תאריך: {{notification?.date}}</span>
+        <span>שעה: {{notification?.time}}</span>
+      </div>
   </div>
+  <ng-template #loadingB>בטעינה</ng-template>
   <!-- Footer -->
   <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
     <title>Gray Clouds Background</title>

@@ -12,16 +12,35 @@ export class AppComponent implements OnInit {
 
   title = 'התראות פיקוד העורף';
   notifications: [] = null;
-  lastNotification = null;
+  lastNotification = {data: ['אין התראות חדשות']};
+  loadingNotifications = false;
+  loadingHistory = false;
 
   ngOnInit(): void {
-    this.notificationsService.getHistory().subscribe(data => this.notifications = data);
-    setInterval( () => {
+    this.getHistory();
+    setInterval(() => {
       this.getLast();
     }, 5000);
   }
 
   getLast(): void {
-    this.notificationsService.getLastNotification().subscribe(data => this.lastNotification = data);
+    this.loadingNotifications = true;
+    this.notificationsService.getLastNotification().subscribe(data => {
+      if (data !== '') {
+        this.loadingNotifications = false;
+        this.lastNotification = data;
+      } else {
+        this.loadingNotifications = false;
+        this.lastNotification = {data: ['אין התראות חדשות']};
+      }
+    });
+  }
+
+  getHistory(): void {
+    this.loadingHistory = true;
+    this.notificationsService.getHistory().subscribe(data => {
+      this.notifications = data;
+      this.loadingHistory = false;
+    });
   }
 }

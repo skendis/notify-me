@@ -15,6 +15,7 @@ export class NotificationsService {
   }
 
   getLastNotification(): Observable<any> {
-    return this.http.get('api/notifications');
+    const historyUrl = 'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&mode=1';
+    return this.http.get(historyUrl);
   }
 }
