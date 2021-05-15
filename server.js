@@ -12,12 +12,16 @@ const historyUrl = process.env.HISTORY_URL
 const configHeaders = process.env.REQ_HEADERS;
 const isExternalApi = process.env.IS_EXTERNAL_API;
 
+console.log('history.url',historyUrl);
+console.log('alerts.url',notificationsUrl);
+console.log('isExternalApi',isExternalApi);
+
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + `/dist/${appName}`));
 app.use(bodyparser.json());
 
 app.get('/api/notifications', async (req, res) => {
-  if (isExternalApi) {
+  if (isExternalApi == 1) {
     try {
       const response = await axios.get(notificationsUrl, {headers: configHeaders});
       return res.status(200).json(response.data);
@@ -40,7 +44,7 @@ app.get('/api/notifications', async (req, res) => {
 })
 
 app.get('/api/notifications-history', async (req, res) => {
-  if (isExternalApi) {
+  if (isExternalApi == 1) {
     try {
       const response = await axios.get(historyUrl, {headers: configHeaders});
       return res.status(200).json(response.data);
