@@ -26,10 +26,10 @@ app.use(bodyparser.json());
 app.get('/api/notifications', async (req, res) => {
   try {
     const response = await axios.get(notificationsUrl, {headers: configHeaders});
-    return res.json(response.data);
+    return res.status(200).json(response.data);
   } catch (err) {
     console.log('error:',err);
-    return res.json({
+    return res.status(503).json({
       description:'server error',
       data:err
     })
@@ -42,10 +42,10 @@ app.get('/api/notifications', async (req, res) => {
 app.get('/api/notifications-history', async (req, res) => {
   try {
     const response = await axios.get(historyUrl,{headers:configHeaders});
-    return res.json(response.data);
+    return res.status(200).json(response.data);
   } catch (err) {
     console.log('error:',err);
-    return res.json({
+    return res.status(503).json({
       description:'server error',
       data:err
     })
